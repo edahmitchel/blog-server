@@ -1,0 +1,55 @@
+const express = require("express");
+const app = express();
+const PORT = 8080;
+const {mongoose} = require("./models/blogSchema");
+const dbName = "blog";
+const path = require("path")
+const postRoutes = require("./routes/posts/postsModule")
+const password = "testing123";
+const mongoDBURI = `mongodb+srv://mitchel:${password}@blog.lmjgf.mongodb.net/${dbName}?retryWrites=true&w=majority`
+// const mongoDBURI = `mongodb://localhost:27017`
+// app.use("*", express.static("public/build"));
+let db;
+app.get("/",(req,res)=>{
+  res.send(`hello ${req.path}`)
+  console.log("get running")
+})
+// app.post("/",(req,res)=>{
+//   res.send("a post request")
+// })
+app.use("/posts", postRoutes)
+// app.listen(PORT,()=>{
+//   console.log(`server running at ${PORT}`)
+// })
+// async function main () {
+//   try {
+//     console.log(mongoDBURI)
+//     let resp = await mongoose.connect(mongoDBURI,{
+//       useNewUrlParser: true,
+//       useUnifiedTopology: true,
+//     });
+//     console.log({ resp });
+//     app.listen(PORT, () => {
+//       console.log("listening");
+//     });
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+// main();
+mongoose
+  .connect(mongoDBURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server is running on port: ${PORT} `);
+    });
+  })
+  .catch((error) => {
+    console.error(error.message);
+  });
+mongoose.connection.once("open", ()=>{
+  console.log("connected to mongodb")
+})
