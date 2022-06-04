@@ -7,9 +7,11 @@ const path = require("path")
 const postRoutes = require("./routes/posts/postsModule")
 const password = "testing123";
 const mongoDBURI = `mongodb+srv://mitchel:${password}@blog.lmjgf.mongodb.net/${dbName}?retryWrites=true&w=majority`
+const cors = require('cors')
 // const mongoDBURI = `mongodb://localhost:27017`
 // app.use("*", express.static("public/build"));
 let db;
+app.use(cors({origin:true}))
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
