@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const PORT = 8080;
-const {mongoose} = require("./models/blogSchema");
+const {mongoose} = require("./models/postsSchema");
 const dbName = "blog";
 const path = require("path")
 const postRoutes = require("./routes/posts/postsModule")
@@ -10,6 +10,10 @@ const mongoDBURI = `mongodb+srv://mitchel:${password}@blog.lmjgf.mongodb.net/${d
 // const mongoDBURI = `mongodb://localhost:27017`
 // app.use("*", express.static("public/build"));
 let db;
+app.use(express.json())
+app.use(express.urlencoded({extended:false}))
+
+
 app.get("/",(req,res)=>{
   res.send(`hello ${req.path}`)
   console.log("get running")

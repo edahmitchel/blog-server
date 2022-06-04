@@ -5,9 +5,9 @@ const {
   } = require("../../controller/posts")
    
 
-    router.get("/",allPosts )
     router.get("/:id", getSinglePost)
-    router.post("/",newPost)
+    router.get("/",allPosts )
+    router.post("/create/:id",newPost)
     router.delete("/:id",deletePost)
     // put is to update
     router.put("/:id",updatePost)
