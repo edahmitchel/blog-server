@@ -7,7 +7,7 @@ const {
 
     router.get("/:id", getSinglePost)
     router.get("/",allPosts )
-    router.post("/:id",newPost)
+    router.post("/",newPost)
     router.delete("/:id",deletePost)
     // put is to update
     router.put("/:id",updatePost)
